@@ -32,32 +32,32 @@ class TestEqual:
 
 class TestAdd:
 
-    def test_vectorplusitself(self):
+    def test_vector_plus_itself(self):
         a = Vector(1, 2, 3)
         assert a + a == Vector(2, 4, 6)
-    def test_vectoradd(self):
+    def test_vector_add(self):
         a = Vector(1, 2, 3)
         b = Vector(1, 2, 3)
         assert a + b == Vector(2, 4, 6)
 
 class TestSubtract:
 
-    def test_vectorminusitself(self):
+    def test_vector_minus_itself(self):
         a = Vector(1, 2, 3)
         assert a - a == Vector(0, 0, 0)
-    def test_vectorminus(self):
+    def test_vector_minus(self):
         a = Vector(1, 2, 3)
         b = Vector(1, 2, 3)
         assert a - b == Vector(0, 0, 0)
 
 class TestNorm:
-    def test_0vector(self):
+    def test_0_vector(self):
         a = Vector(0, 0, 0)
         assert a.norm == 0
-    def test_1vector(self):
+    def test_1_vector(self):
         a = Vector(1, 0, 0)
         assert a.norm == 1
-    def test_2dvector(self):
+    def test_2d_vector(self):
         a = Vector(1, 1, 0)
         assert are_close_enough(
             a.norm,
@@ -72,7 +72,7 @@ def test_string():
     norm = a.norm
     assert str(a) == "(1, 2, 3) with norm " + str(norm)
 
-class Test_Scaled_by:
+class TestScaledBy:
     def test_scale_by_1(self):
         a = Vector(1, 2, 3)
         assert a.scaled_by(1) == a
@@ -111,3 +111,39 @@ class TestDot:
         a = Vector(1,0,0)
         b = Vector(0,1,0)
         assert a.dot(b) == 0
+    def test_parallel(self):
+        a = Vector(1, 0, 0)
+        b = Vector(2, 0, 0)
+        assert a.dot(b) == 2
+
+class TestCross:
+    def test_unit_perp(self):
+        a = Vector(1, 0, 0)
+        b = Vector(0, 1, 0)
+        assert a.cross(b) == Vector(0, 0, 1)
+    def test_perp(self):
+        a = Vector(2, 0, 0)
+        b = Vector(0, 2, 0)
+        print(str(a.cross(b)))
+        assert a.cross(b) == Vector(0, 0, 4)
+    def test_general(self):
+        a = Vector(1, 2, 3)
+        b = Vector(4, 5, 6)
+        assert a.cross(b) == Vector(-3, 6, -3)
+
+class TestUnit:
+    def test_vector_to_unit(self):
+        a = Vector(1, 2, 3)
+        assert are_close_enough(0.2672612419, a.unit.i)
+        assert are_close_enough(0.5345224838, a.unit.j)
+        assert are_close_enough(0.8017837257, a.unit.k)
+    def test_unit_to_unit(self):
+        a = Vector(1, 0, 0)
+        assert a.unit == a
+    def test_zero_vector(self):
+        a = Vector(0, 0, 0)
+        assert a.unit == Vector(0, 0, 0)
+    def test_norm(self):
+        a = Vector(5,3,8)
+        a = a.unit
+        assert are_close_enough(a.norm,1 )
