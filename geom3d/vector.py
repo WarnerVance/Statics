@@ -64,4 +64,6 @@ class Vector:
 
     @property
     def unit(self):
+        if are_close_enough(self.norm, 0):
+            return self
         return self.scaled_by(1 / self.norm)
