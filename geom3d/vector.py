@@ -19,7 +19,7 @@ class Vector:
 
     def __add__(self, other):
         if not isinstance(other, Vector):
-            return NotImplemented
+            return "You can't do that"
         return Vector(
             self.i + other.i,
             self.j + other.j,

@@ -1,7 +1,9 @@
+import math
+
 from geom3d.nums import are_close_enough
 from geom3d.points import Point
 from geom3d.vector import Vector
-import math
+
 
 def test_init():
     a = Point(1,2,3)
@@ -123,23 +125,52 @@ class TestPointStr:
         p = Point(1.5, 0.25, -3.4)
         assert str(p) == "(1.5, 0.25, -3.4)"
 
-class TestPointStr:
-    def test_str_origin(self):
-        p = Point(0, 0, 0)
-        assert str(p) == "(0, 0, 0)"
 
-    def test_str_positive_coordinates(self):
-        p = Point(1, 2, 3)
-        assert str(p) == "(1, 2, 3)"
+class TestPoint:
+    def test_distance_to_same_point(self):
+        p1 = Point(1.0, 2.0, 3.0)
+        assert p1.distance_to(p1) == 0.0
 
-    def test_str_negative_coordinates(self):
-        p = Point(-1, -2, -3)
-        assert str(p) == "(-1, -2, -3)"
+    def test_distance_to_different_point(self):
+        p1 = Point(0.0, 0.0, 0.0)
+        p2 = Point(3.0, 4.0, 0.0)
+        assert p1.distance_to(p2) == 5.0
 
-    def test_str_mixed_coordinates(self):
-        p = Point(1, -2, 3)
-        assert str(p) == "(1, -2, 3)"
+    def test_subtraction_between_points(self):
+        p1 = Point(5.0, 7.0, 9.0)
+        p2 = Point(2.0, 3.0, 4.0)
+        result = p1 - p2
+        assert result.i == 3.0
+        assert result.j == 4.0
+        assert result.k == 5.0
 
-    def test_str_floating_point_coordinates(self):
-        p = Point(1.5, 0.25, -3.4)
-        assert str(p) == "(1.5, 0.25, -3.4)"
+    def test_equality_same_point(self):
+        p1 = Point(1.0, 2.0, 3.0)
+        p2 = Point(1.0, 2.0, 3.0)
+        assert p1 == p2
+
+    def test_equality_within_tolerance(self):
+        p1 = Point(1.000000000001, 2.000000000001, 3.00000000001)
+        p2 = Point(1.0, 2.0, 3.0)
+        assert p1 == p2
+
+    def test_equality_different_points(self):
+        p1 = Point(1.0, 2.0, 3.0)
+        p2 = Point(4.0, 5.0, 6.0)
+        assert p1 != p2
+
+    def test_str_representation(self):
+        p = Point(1.234, 5.678, 9.1011)
+        assert str(p) == "(1.234, 5.678, 9.1011)"
+
+    def test_displaced_point_without_scaling(self):
+        p = Point(1.0, 2.0, 3.0)
+        v = Vector(1.0, 1.0, 1.0)
+        displaced = p.displaced(v)
+        assert displaced == Point(2.0, 3.0, 4.0)
+
+    def test_displaced_point_with_scaling(self):
+        p = Point(1.0, 1.0, 1.0)
+        v = Vector(2.0, 3.0, 4.0)
+        displaced = p.displaced(v, times=2)
+        assert displaced == Point(5.0, 7.0, 9.0)

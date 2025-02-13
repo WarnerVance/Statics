@@ -40,6 +40,11 @@ class TestAdd:
         b = Vector(1, 2, 3)
         assert a + b == Vector(2, 4, 6)
 
+    def test_vector_add_int(self):
+        a = Vector(1, 2, 3)
+        b = 1
+        assert (a + b) == "You can't do that"
+
 class TestSubtract:
 
     def test_vector_minus_itself(self):
