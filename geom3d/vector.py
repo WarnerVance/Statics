@@ -35,12 +35,21 @@ class Vector:
 
     @property
     def norm(self):
+        """
+        Finds the magnitude of the given vector using the pythagorean theorem.
+        :return: float
+        """
         return math.sqrt(self.i ** 2 + self.j ** 2 + self.k ** 2)
 
     def __str__(self):
         return f"({self.i}, {self.j}, {self.k}) with norm {self.norm}"
 
     def scaled_by(self, factor):
+        """
+        Multiplies the elements in the vector by the given factor.
+        :param factor: a float or int
+        :return: Vector
+        """
         return Vector(
             self.i * factor,
             self.j * factor,
@@ -50,12 +59,20 @@ class Vector:
     def __mul__(self, other):
         return self.scaled_by(other)
 
-
-
     def dot(self, other):
+        """
+        Returns the dot product of two vectors
+        :param other: Vector
+        :return: int or float
+        """
         return self.i * other.i + self.j * other.j + self.k * other.k
 
     def cross(self, other):
+        """
+        Returns the cross product of two vectors.
+        :param other: Vector
+        :return: Vector
+        """
         return Vector(
             self.j * other.k - self.k * other.j,
             self.k * other.i - self.i * other.k,
@@ -64,6 +81,12 @@ class Vector:
 
     @property
     def unit(self):
+        """
+        Finds the unit vector of the given vector.
+        :return: Vector
+        """
         if are_close_enough(self.norm, 0):
+            # This allows for the special case were we try to find the unit vector of the
+            # zero vector. This would involve dividing by zero so we need another bit of logic.
             return self
         return self.scaled_by(1 / self.norm)
