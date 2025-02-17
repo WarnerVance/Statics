@@ -36,14 +36,46 @@ class Point:
 
     def displaced(self, vector: Vector, times=1):
         """
-        Creates a new point that is displaced from the starting point by the given vector which is scaled by the given times
-        :param vector: Vector
-        :param times: int or float
-        :return: Point
+        Displaces the current point by a scaled vector.
+
+        This method creates a new point by moving the current point along a given vector,
+        scaled by a specified factor. The scaling is performed by the method
+        `scaled_by` from the `Vector` class. The translated point is then calculated
+        and returned as a new `Point` object.
+
+        :param vector: The vector along which the point should be displaced.
+            This vector defines the direction of the movement.
+        :type vector: Vector
+        :param times: An optional scale factor used to modify the vector's magnitude
+            before displacing the point. By default, it is set to 1.
+        :type times: int
+        :return: A new `Point` object representing the displaced point.
+        :rtype: Point
         """
         scaled_vec = vector.scaled_by(times)
         return Point(
             self.x + scaled_vec.i,
             self.y + scaled_vec.j,
             self.z + scaled_vec.k
+        )
+
+    def make_vector(self, other):
+        """
+        Computes a vector between the current instance and another point
+        in a 3-dimensional space. The resulting vector is determined by
+        subtracting the coordinates of the current instance from the
+        corresponding coordinates of the `other` instance. The vector is from
+        self and to other.
+
+        :param other: An instance representing a 3D point with `x`, `y`,
+            and `z` attributes.
+        :type other: Vector
+        :return: A new vector instance representing the difference between
+            the current instance and the `other` instance.
+        :rtype: Vector
+        """
+        return Vector(
+            other.x - self.x,
+            other.y - self.y,
+            other.z - self.z
         )
