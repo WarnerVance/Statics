@@ -87,6 +87,6 @@ class Vector:
         """
         if are_close_enough(self.norm, 0):
             # This allows for the special case were we try to find the unit vector of the
-            # zero vector. This would involve dividing by zero so we need another bit of logic.
+            # zero vector. This would involve dividing by zero so we need another bit of logic to handle that
             return self
         return self.scaled_by(1 / self.norm)

@@ -174,3 +174,40 @@ class TestPoint:
         v = Vector(2.0, 3.0, 4.0)
         displaced = p.displaced(v, times=2)
         assert displaced == Point(5.0, 7.0, 9.0)
+
+
+class TestMakeVector:
+    def test_make_vector_valid(self):
+        p1 = Point(1, 2, 3)
+        p2 = Point(4, 5, 6)
+        result = p1.make_vector(p2)
+        expected = Vector(3, 3, 3)
+        assert result == expected
+
+    def test_make_vector_zero_difference(self):
+        p1 = Point(1, 1, 1)
+        p2 = Point(1, 1, 1)
+        result = p1.make_vector(p2)
+        expected = Vector(0, 0, 0)
+        assert result == expected
+
+    def test_make_vector_negative_coordinates(self):
+        p1 = Point(-1, -2, -3)
+        p2 = Point(-4, -5, -6)
+        result = p1.make_vector(p2)
+        expected = Vector(-3, -3, -3)
+        assert result == expected
+
+    def test_make_vector_mixed_coordinates(self):
+        p1 = Point(1, -2, 3)
+        p2 = Point(-4, 5, -6)
+        result = p1.make_vector(p2)
+        expected = Vector(-5, 7, -9)
+        assert result == expected
+
+    def test_make_vector_to_point_at_origin(self):
+        p1 = Point(1, 2, 3)
+        p2 = Point(0, 0, 0)
+        result = p1.make_vector(p2)
+        expected = Vector(-1, -2, -3)
+        assert result == expected
