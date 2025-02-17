@@ -11,6 +11,19 @@ class Point:
         self.z = z
 
     def distance_to(self, other):
+        """
+        Calculates the Euclidean distance from the current point to another point in 3D space.
+
+        The method computes the straight-line distance between two points in a three-dimensional
+        coordinate space (x, y, z). It follows the formula:
+
+            distance sqrt((x2 - x1)^2 + (y2 - y1)^2 + (z2 - z1)^2)
+
+        :param other: The other point to calculate the distance to.
+        :type other: Point
+        :return: The Euclidean distance between the two points.
+        :rtype: float
+        """
         delta_x = other.x - self.x
         delta_y = other.y - self.y
         delta_z = other.z - self.z
@@ -69,7 +82,7 @@ class Point:
 
         :param other: An instance representing a 3D point with `x`, `y`,
             and `z` attributes.
-        :type other: Vector
+        :type other: Point
         :return: A new vector instance representing the difference between
             the current instance and the `other` instance.
         :rtype: Vector
