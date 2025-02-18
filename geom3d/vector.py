@@ -214,7 +214,7 @@ class Vector:
         :param length: The value by which the current unit will be scaled. It can
                       be either `int` or `float`.
         :type length: int or float
-        :return: A vector with the given lenght
+        :return: A vector with the given length
         :rtype: Vector
 
         """
