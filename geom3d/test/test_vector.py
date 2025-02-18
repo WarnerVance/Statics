@@ -210,3 +210,33 @@ class TestIsParallel:
         v1 = Vector(0, 0, 0)
         v2 = Vector(1, 1, 1)
         assert v1.is_parallel(v2)
+
+
+class TestMakeLength:
+
+    def test_make_length_scaling_up(self):
+        vector = Vector(3, 4, 0)
+        scaled_vector = vector.make_length(10)
+        assert pytest.approx(scaled_vector.norm, rel=1e-9) == 10
+        assert scaled_vector.is_parallel(vector)
+
+    def test_make_length_scaling_down(self):
+        vector = Vector(6, 8, 0)
+        scaled_vector = vector.make_length(5)
+        assert pytest.approx(scaled_vector.norm, rel=1e-9) == 5
+        assert scaled_vector.is_parallel(vector)
+
+    def test_make_length_with_zero_vector(self):
+        vector = Vector(0, 0, 0)
+        assert vector.make_length(5) == Vector(0, 0, 0)
+
+    def test_make_length_with_negative_length(self):
+        vector = Vector(3, 4, 0)
+        scaled_vector = vector.make_length(-10)
+        assert pytest.approx(scaled_vector.norm, rel=1e-9) == 10
+        assert scaled_vector.is_parallel(vector)
+
+    def test_make_length_preserves_direction(self):
+        vector = Vector(1, 1, 1)
+        scaled_vector = vector.make_length(2)
+        assert scaled_vector.is_parallel(vector)

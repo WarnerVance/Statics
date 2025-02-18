@@ -205,3 +205,19 @@ class Vector:
         :rtype: bool
         """
         return is_close_to_zero(self.cross(other).norm)
+
+    def make_length(self, length: int or float):
+        """
+        This function makes a vector have a given length while preserving it's direction.
+        It does this by first finding the unit vector and then scaling it by the given length.
+
+        :param length: The value by which the current unit will be scaled. It can
+                      be either `int` or `float`.
+        :type length: int or float
+        :return: A vector with the given lenght
+        :rtype: Vector
+
+        """
+        if self == Vector(0, 0, 0):
+            return Vector(0, 0, 0)
+        return self.unit.scaled_by(length)
