@@ -1,3 +1,5 @@
+import pytest
+
 from geom3d.nums import are_close_enough
 from geom3d.vector import Vector
 
@@ -152,3 +154,42 @@ class TestUnit:
         a = Vector(5,3,8)
         a = a.unit
         assert are_close_enough(a.norm,1 )
+
+
+class TestComp:
+
+    def test_comp_orthogonal_vectors(self):
+        v1 = Vector(1, 0, 0)
+        v2 = Vector(0, 1, 0)
+        assert v1.comp(v2) == 0
+
+    def test_comp_parallel_unit_vectors(self):
+        v1 = Vector(1, 0, 0)
+        v2 = Vector(1, 0, 0)
+        assert v1.comp(v2) == 1
+
+    def test_comp_parallel_non_unit_vectors(self):
+        v1 = Vector(2, 0, 0)
+        v2 = Vector(4, 0, 0)
+        assert v1.comp(v2) == pytest.approx(2)
+
+    def test_comp_negative_component(self):
+        v1 = Vector(-2, 0, 0)
+        v2 = Vector(0, -3, 0)
+        assert v1.comp(v2) == 0
+
+    def test_comp_with_non_zero_result(self):
+        v1 = Vector(3, 4, 0)
+        v2 = Vector(6, 8, 0)
+        assert v1.comp(v2) == pytest.approx(5)
+
+    def test_comp_small_vectors(self):
+        v1 = Vector(0.001, 0.002, 0.003)
+        v2 = Vector(0.004, 0.005, 0.006)
+        assert v1.comp(v2) == pytest.approx(0.003646738446708415)
+
+    def test_comp_with_zero_vector(self):
+        v1 = Vector(1, 2, 3)
+        v2 = Vector(0, 0, 0)
+        with pytest.raises(ZeroDivisionError):
+            v1.comp(v2)

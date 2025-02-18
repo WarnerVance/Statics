@@ -125,3 +125,15 @@ class Vector:
             # zero vector. This would involve dividing by zero so we need another bit of logic to handle that
             return self
         return self.scaled_by(1 / self.norm)
+
+    def comp(self, other):
+        """
+        This computes the scalar projection of self over other.
+
+        :param other: The vector instance with which comparison is made.
+        :type other: Vector
+        :return: The ratio of the dot product of this vector and `other` to the
+            norm of `other`.
+        :rtype: float
+        """
+        return self.dot(other) / other.norm
