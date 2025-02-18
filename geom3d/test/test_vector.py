@@ -193,3 +193,20 @@ class TestComp:
         v2 = Vector(0, 0, 0)
         with pytest.raises(ZeroDivisionError):
             v1.comp(v2)
+
+
+class TestIsParallel:
+    def test_parallel_vectors(self):
+        v1 = Vector(1, 0, 0)
+        v2 = Vector(1, 0, 0)
+        assert v1.is_parallel(v2)
+
+    def test_non_parallel_vectors(self):
+        v1 = Vector(1, 0, 0)
+        v2 = Vector(1, 1, 0)
+        assert not v1.is_parallel(v2)
+
+    def test_zero_vector(self):
+        v1 = Vector(0, 0, 0)
+        v2 = Vector(1, 1, 1)
+        assert v1.is_parallel(v2)

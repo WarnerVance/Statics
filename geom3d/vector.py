@@ -137,3 +137,19 @@ class Vector:
         :rtype: float
         """
         return self.dot(other) / other.norm
+
+    def is_parallel(self, other):
+        """
+        Determines whether the current vector is parallel to another vector.
+
+        This method checks if the cross product of the two vectors is equal
+        to the zero vector, which indicates parallelism. A vector is parallel
+        to another if they lie in the same or opposite direction along the
+        same line but differ only in magnitude or direction. A zero vector is parrallel to any vector.
+
+        :param other: The other vector to compare.
+        :type other: Vector
+        :return: True if the vectors are parallel, False otherwise.
+        :rtype: bool
+        """
+        return self.cross(other) == Vector(0, 0, 0)
