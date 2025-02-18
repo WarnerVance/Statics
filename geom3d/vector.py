@@ -1,6 +1,7 @@
 import math
 
 from geom3d.nums import are_close_enough
+from geom3d.nums import is_close_to_zero
 
 
 class Vector:
@@ -93,9 +94,7 @@ class Vector:
         Computes the cross product of the current vector with another vector.
 
         The cross product is performed between two 3D vectors and results in a
-        new vector that is perpendicular to both input vectors. This is often
-        used in physics, computer graphics, and vector mathematics to determine
-        the orientation of two vectors in three-dimensional space.
+        new vector that is perpendicular to both input vectors.
 
         :param other: The other vector to compute the cross product with.
         :type other: Vector
@@ -152,4 +151,4 @@ class Vector:
         :return: True if the vectors are parallel, False otherwise.
         :rtype: bool
         """
-        return self.cross(other) == Vector(0, 0, 0)
+        return is_close_to_zero(self.cross(other).norm)
