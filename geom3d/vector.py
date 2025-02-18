@@ -221,3 +221,16 @@ class Vector:
         if self == Vector(0, 0, 0):
             return Vector(0, 0, 0)
         return self.unit.scaled_by(length)
+
+    def find_angle(self, other, plane=1):
+        """
+
+        :param other: The other vector
+        :type other: Vector
+        :param plane: 1 for xy, 2 for xz, 3 for yz
+        :return: The angle between the two vectors in degrees
+        :rtype: float
+        """
+        # Find what plane we're talking about here
+        # xy xz or yz
+        # We will ignore the other coordinate
