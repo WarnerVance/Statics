@@ -6,6 +6,21 @@ from geom3d.vector import Vector
 
 class Point:
     def __init__(self, x, y, z):
+        """
+        Represents a class that encapsulates three attributes `x`, `y`, and `z`.
+
+        This class is designed to initialize its attributes using the parameters
+        passed to the constructor. The class does not implement any additional
+        methods or behavior aside from storing the data.
+
+
+        :param x: The value to be stored in the `x` attribute.
+        :type x: float or int
+        :param y: The value to be stored in the `y` attribute.
+        :type y: float or int
+        :param z: The value to be stored in the `z` attribute.
+        :type z: float or int
+        """
         self.x = x
         self.y = y
         self.z = z
@@ -30,6 +45,17 @@ class Point:
         return math.sqrt((delta_x ** 2) + (delta_y ** 2) + (delta_z ** 2))
 
     def __sub__(self, other):
+        """
+        Performs subtraction of two vectors.
+
+        This method calculates the difference between two vectors
+        component-wise and returns a new vector representing the result.
+
+        :param other: The vector to subtract from this vector.
+        :type other: Vector
+        :return: A new vector which is the result of the subtraction.
+        :rtype: Vector
+        """
         return Vector(
             self.x - other.x,
             self.y - other.y,
@@ -37,6 +63,20 @@ class Point:
         )
 
     def __eq__(self, other):
+        """
+        Compares two Point objects for equality.
+
+        The method determines if the current Point object is equivalent to another
+        object by checking reference equality. If the objects are not the same reference,
+        it verifies they are both instances of the Point class. Finally, it compares
+        the x, y, and z attributes of both objects using a precision function
+        `are_close_enough`.
+
+        :param other: The object to compare with the current Point instance.
+        :type other: Point
+        :return: True if the objects are equal, False otherwise.
+        :rtype: bool
+        """
         if self is other:
             return True
         if not isinstance(other, Point):
@@ -45,6 +85,16 @@ class Point:
                                                                                                             other.z)
 
     def __str__(self):
+        """
+        Represents an object by converting it into a string.
+
+        This method provides a textual representation of the object, specifically a
+        formatted string containing the attributes of the instance. It is executed
+        when `str()` is called on the object or it is used in a string context.
+
+        :return: A formatted string representing the object attributes.
+        :rtype: str
+        """
         return f"({self.x}, {self.y}, {self.z})"
 
     def displaced(self, vector: Vector, times=1):
@@ -61,7 +111,7 @@ class Point:
         :type vector: Vector
         :param times: An optional scale factor used to modify the vector's magnitude
             before displacing the point. By default, it is set to 1.
-        :type times: int
+        :type times: int or float
         :return: A new `Point` object representing the displaced point.
         :rtype: Point
         """

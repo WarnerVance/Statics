@@ -6,11 +6,34 @@ from geom3d.nums import is_close_to_zero
 
 class Vector:
     def __init__(self, i, j, k):
+        """
+        Initialize the example class with given parameters `i`, `j`, and `k`.
+
+        :param i: Represents the first parameter of the class. Should be an integer.
+        :param j: Represents the second parameter of the class. Should be a string value.
+        :param k: Represents the third parameter of the class. Should be a float.
+
+        """
         self.i = i
         self.j = j
         self.k = k
 
     def __eq__(self, other):
+        """
+        Compares the current Vector instance with another object to determine
+        if they are equal. The method checks for reference equality first,
+        then for type compatibility. If the types match, it performs a
+        component-wise comparison using the `are_close_enough` function to
+        determine if the components of the two vectors are sufficiently
+        close to be considered equal.
+
+        :param other: The object to compare with the current instance.
+                      Should be of type `Vector`.
+        :type other: Any
+        :return: True if the current instance is equal to the object
+                 specified, False otherwise.
+        :rtype: bool
+        """
         if self is other:
             return True
         if not isinstance(other, Vector):
@@ -19,6 +42,15 @@ class Vector:
                                                                                                             other.k)
 
     def __add__(self, other):
+        """
+        Adds two vectors together to return a new vector. The operation is only valid when both
+        operands are instances of the Vector class. If the operand is not a Vector, the method
+        returns a string indicating that the operation cannot be performed.
+
+        :param other: The Vector instance to be added to the current Vector instance.
+        :return: A new Vector instance representing the result of the vector addition,
+            or a string indicating an invalid operation if `other` is not a Vector.
+        """
         if not isinstance(other, Vector):
             return "You can't do that"
         return Vector(
@@ -45,6 +77,17 @@ class Vector:
         return math.sqrt(self.i ** 2 + self.j ** 2 + self.k ** 2)
 
     def __str__(self):
+        """
+        Converts the current instance of the class to its string representation.
+
+        The method provides a formatted string representing
+        the object including its attributes and computed properties.
+        It is intended to make the object more human-readable.
+
+        :return: A string representation of the object, including its attributes and
+            a computed property `norm`.
+        :rtype: str
+        """
         return f"({self.i}, {self.j}, {self.k}) with norm {self.norm}"
 
     def scaled_by(self, factor):
@@ -69,6 +112,16 @@ class Vector:
         )
 
     def __mul__(self, other):
+        """
+        Implements the multiplication operation for the class. Allows objects of the
+        class to be scaled by another value through multiplication, invoking the
+        `scaled_by` method of the class. It returns a new instance with the modified
+        values resulting from the scaling operation.
+
+        :param other: The value used to scale the current object.
+        :type other: float or int
+        :return: A new Vector instance with scaled components.
+        """
         return self.scaled_by(other)
 
     def dot(self, other):
